@@ -15,8 +15,8 @@ from training import Trainer
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-ld", "--logdir", help="Path to save logs", default=f"/tmp/{getpass.getuser()}")
-parser.add_argument("-ni", "--num_iters", help="Number of iterations to train for", type=int, default=50000)#50000
+parser.add_argument("-ld", "--logdir", help="Path to save logs", default=f"/home/dyj0921/project/ep1_inr/{getpass.getuser()}")
+parser.add_argument("-ni", "--num_iters", help="Number of iterations to train for", type=int, default=5000)#50000
 parser.add_argument("-lr", "--learning_rate", help="Learning rate", type=float, default=2e-4)
 parser.add_argument("-se", "--seed", help="Random seed", type=int, default=random.randint(1, int(1e6)))
 parser.add_argument("-iid", "--image_id", help="Image ID to train on", type=int, default=15)
@@ -26,7 +26,7 @@ parser.add_argument("-w0", "--w0", help="w0 parameter for SIREN model.", type=fl
 parser.add_argument("-w0i", "--w0_initial", help="w0 parameter for first layer of SIREN model.", type=float, default=30.0)
 # Wandb参数，因为上传到wandb服务器过程中可能出现网络错误，所以在使用wandb时确保不出现“network error"
 parser.add_argument("--use_wandb", type=int, default=1)#0
-parser.add_argument("--wandb_project_name", type=str, default="ep1")#your_project_name
+parser.add_argument("--wandb_project_name", type=str, default="ep1_test")#your_project_name
 parser.add_argument("--wandb_entity", type=str, default="douyuejia")#your_entity
 parser.add_argument("--wandb_job_type", help="Wandb job type. This is useful for grouping runs together.", type=str, default=None)
 
@@ -58,7 +58,8 @@ for i in range(min_id, max_id + 1):
     print(f'Image {i}')
 
     # Load image
-    img = imageio.imread(f"ep1_inr/kodak-dataset/kodim{str(i).zfill(2)}.png")
+    # img = imageio.imread(f"ep1_inr/kodak-dataset/kodim{str(i).zfill(2)}.png") 使用数据集
+    img = imageio.imread(f"ep1_inr/kodak-dataset/img_3.png")#验收用
     img = transforms.ToTensor()(img).float().to(device, dtype)
 
     # Setup model
